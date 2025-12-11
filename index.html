@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Squares</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .square {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .square:hover {
+            transform: scale(1.05);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .reset-btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reset-btn:hover {
+            background-color: #45a049;
+        }
+
+        .square.hidden {
+            color: transparent;
+            text-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="reset-btn" id="resetBtn">Reset All</button>
+    </div>
+    <div class="container">
+        <div class="square" style="background-color: #F22D1B;" title="#F22D1B">Red</div>
+        <div class="square" style="background-color: #FFA500;" title="#FFA500">Orange</div>
+        <div class="square" style="background-color: #F2E852;" title="#F2E852">Yellow</div>
+        <div class="square" style="background-color: #8C267B;" title="#8C267B">Magenta</div>
+        <div class="square" style="background-color: #D95B5B;" title="#D95B5B">Salmon</div>
+        <div class="square" style="background-color: #43A047;" title="#43A047">Green</div>
+        <div class="square" style="background-color: #1E88E5;" title="#1E88E5">Blue</div>
+        <div class="square" style="background-color: #8E24AA;" title="#8E24AA">Purple</div>
+        <div class="square" style="background-color: #009688;" title="#009688">Teal</div>
+        <div class="square" style="background-color: #00BCD4;" title="#00BCD4">Cyan</div>
+        <div class="square" style="background-color: #E91E63;" title="#E91E63">Pink</div>
+        <div class="square" style="background-color: #795548;" title="#795548">Brown</div>
+        <div class="square" style="background-color: #3F51B5;" title="#3F51B5">Indigo</div>
+        <div class="square" style="background-color: #CDDC39;" title="#CDDC39">Lime</div>
+        <div class="square" style="background-color: #40E0D0;" title="#40E0D0">Turquoise</div>
+        <div class="square" style="background-color: #800000;" title="#800000">Maroon</div>
+        <div class="square" style="background-color: #000080;" title="#000080">Navy</div>
+        <div class="square" style="background-color: #808000;" title="#808000">Olive</div>
+        <div class="square" style="background-color: #808080;" title="#808080">Gray</div>
+    </div>
+
+    <script>
+        const squares = document.querySelectorAll('.square');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Toggle text visibility when clicking a square
+        squares.forEach(square => {
+            square.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('hidden');
+            });
+        });
+
+        // Reset all squares to hidden state and randomize their positions
+        resetBtn.addEventListener('click', function() {
+            squares.forEach(square => {
+                square.classList.add('hidden');
+            });
+            // Shuffle squares
+            const container = document.querySelector('.container');
+            const squareArray = Array.from(squares);
+            for (let i = squareArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [squareArray[i], squareArray[j]] = [squareArray[j], squareArray[i]];
+            }
+            // Remove all squares and re-append in shuffled order
+            squareArray.forEach(square => container.appendChild(square));
+        });
+    </script>
+</body>
+  </html>
